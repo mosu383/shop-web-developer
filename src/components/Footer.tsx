@@ -1,126 +1,166 @@
 import React from 'react';
-import { MessageCircle, Phone, Mail, ArrowUp, MapPin } from 'lucide-react';
-import { businessInfo } from '../siteConfig';
+import { Mail, MessageCircle, Instagram, Lock, ArrowUp } from 'lucide-react';
+import { useProducts, ADMIN_PIN } from '../context/ProductContext';
 
 export const Footer: React.FC = () => {
+  const { openAdminModal, isAdminAuthenticated, logoutAdmin } = useProducts();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const navLinks = [
-    { label: 'Services', href: '#services' },
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'About', href: '#about' },
-    { label: 'Contact', href: '#contact' },
-  ];
-
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <footer className="bg-slate-950 border-t border-slate-900 py-14 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Main Footer Row */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-10 border-b border-slate-900">
+    <footer className="bg-neutral-950 text-neutral-400 text-sm border-t border-neutral-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           
-          {/* Brand & Slogan as specified */}
-          <div className="text-center md:text-left space-y-2">
-            <div className="flex items-center justify-center md:justify-start gap-2">
-              <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-blue-600/20 border border-blue-500/40 text-blue-400 font-mono text-xs font-bold">
-                {'</>'}
-              </span>
-              <span className="text-xl font-extrabold tracking-tight text-white font-display">
-                {businessInfo.businessName}
+          {/* Brand Info (Cols 1-5) */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-9 h-9 bg-white text-neutral-950 font-black rounded-xl flex items-center justify-center text-sm shadow">
+                FC
+              </div>
+              <span className="font-extrabold text-2xl tracking-tight text-white">
+                Farhan Clothing
               </span>
             </div>
             
-            {/* Specified exact phrase */}
-            <p className="text-sm text-slate-400">
-              "Building websites that help businesses grow."
+            <p className="text-xs text-neutral-400 leading-relaxed max-w-sm">
+              Contemporary Indian streetwear and everyday essentials. Handcrafted with premium combed cottons, durable denims, and modern cuts tailored for life across India.
             </p>
 
-            <p className="text-xs text-slate-400 flex items-center justify-center md:justify-start gap-1.5 pt-0.5">
-              <MapPin className="w-3.5 h-3.5 text-blue-400" />
-              <span>{businessInfo.location}</span>
-            </p>
+            {/* Social Media Links (Visible to Customers) */}
+            <div className="pt-2">
+              <p className="text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-3">
+                Official Customer Channels
+              </p>
+              
+              <div className="flex flex-wrap items-center gap-3">
+                {/* WhatsApp Link */}
+                <a
+                  href="https://wa.me/918292335799"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-full bg-[#25D366]/20 hover:bg-[#25D366] text-[#25D366] hover:text-white border border-[#25D366]/40 flex items-center space-x-1.5 text-xs font-bold transition-all"
+                  title="WhatsApp: +91 8292335799"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 fill-current" />
+                  <span>WhatsApp (+91 8292335799)</span>
+                </a>
+
+                {/* Instagram Link */}
+                <a
+                  href="https://instagram.com/moshahid_ji"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-full bg-pink-500/20 hover:bg-pink-600 text-pink-300 hover:text-white border border-pink-500/40 flex items-center space-x-1.5 text-xs font-bold transition-all"
+                  title="Instagram: @moshahid_ji"
+                >
+                  <Instagram className="w-3.5 h-3.5" />
+                  <span>@moshahid_ji</span>
+                </a>
+
+                {/* Email Link */}
+                <a
+                  href="mailto:princejii2607@gmail.com"
+                  className="px-3 py-1.5 rounded-full bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-800 flex items-center space-x-1.5 text-xs font-medium transition-all"
+                  title="Email: princejii2607@gmail.com"
+                >
+                  <Mail className="w-3.5 h-3.5" />
+                  <span>princejii2607@gmail.com</span>
+                </a>
+              </div>
+            </div>
           </div>
 
-          {/* Navigation Links: Services | Portfolio | About | Contact */}
-          <nav className="flex items-center flex-wrap justify-center gap-6 text-sm font-medium text-slate-300">
-            {navLinks.map((link, idx) => (
-              <React.Fragment key={link.label}>
-                <a
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="hover:text-blue-400 transition-colors"
-                >
-                  {link.label}
-                </a>
-                {idx < navLinks.length - 1 && (
-                  <span aria-hidden="true" className="text-slate-700 hidden sm:inline">|</span>
-                )}
-              </React.Fragment>
-            ))}
-          </nav>
+          {/* Quick Links (Cols 6-8) */}
+          <div className="lg:col-span-3 space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+              Customer Store
+            </h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <button onClick={() => scrollToSection('hero')} className="hover:text-white transition-colors">
+                  Home
+                </button>
+              </li>
+              <li>
+                <button onClick={() => scrollToSection('collection')} className="hover:text-white transition-colors">
+                  Latest Collection (₹ INR)
+                </button>
+              </li>
+              <li>
+                <button onClick={() => scrollToSection('about')} className="hover:text-white transition-colors">
+                  About Farhan Clothing
+                </button>
+              </li>
+              <li>
+                <button onClick={() => scrollToSection('contact')} className="hover:text-white transition-colors">
+                  Customer Support
+                </button>
+              </li>
+            </ul>
+          </div>
 
-          {/* Quick Contact Icons */}
-          <div className="flex items-center gap-3">
-            <a
-              href={`https://wa.me/${businessInfo.whatsappNumber}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="WhatsApp"
-              className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-emerald-400 hover:border-emerald-500/40 transition-colors"
-              title="Chat on WhatsApp"
-            >
-              <MessageCircle className="w-4 h-4" />
-            </a>
-            <a
-              href={`tel:${businessInfo.phone}`}
-              aria-label="Call"
-              className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-blue-400 hover:border-blue-500/40 transition-colors"
-              title="Call Us"
-            >
-              <Phone className="w-4 h-4" />
-            </a>
-            <a
-              href={`mailto:${businessInfo.email}`}
-              aria-label="Email"
-              className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
-              title="Send Email"
-            >
-              <Mail className="w-4 h-4" />
-            </a>
+          {/* Direct Support & Owner Lock (Cols 9-12) */}
+          <div className="lg:col-span-4 space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+              Pan-India Support
+            </h4>
+            <p className="text-xs text-neutral-400">
+              Deliveries across Delhi NCR, Mumbai, Bengaluru, Kolkata, Hyderabad, Chennai, and tier-2/3 cities nationwide.
+            </p>
+
+            <div className="pt-2">
+              {isAdminAuthenticated ? (
+                <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3 flex items-center justify-between">
+                  <span className="text-xs text-amber-400 font-bold">Admin Active</span>
+                  <button
+                    onClick={logoutAdmin}
+                    className="text-xs text-neutral-400 hover:text-white underline"
+                  >
+                    Lock Session
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={openAdminModal}
+                  className="text-xs text-neutral-500 hover:text-neutral-300 flex items-center space-x-1.5 transition-colors pt-1"
+                  title={`Owner Dashboard (PIN: ${ADMIN_PIN})`}
+                >
+                  <Lock className="w-3 h-3 text-neutral-500" />
+                  <span>Store Owner Login (PIN Protected)</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Bottom Legal / Copyright */}
+      <div className="border-t border-neutral-900 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+          <div>
+            <p>© {new Date().getFullYear()} Farhan Clothing India. All rights reserved. Designed for timeless comfort.</p>
+          </div>
+          <div className="flex items-center space-x-6">
             <button
               onClick={scrollToTop}
-              aria-label="Back to top"
-              className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700 transition-colors ml-2"
-              title="Scroll to Top"
+              className="hover:text-white transition-colors flex items-center space-x-1"
             >
-              <ArrowUp className="w-4 h-4" />
+              <span>Back to Top</span>
+              <ArrowUp className="w-3.5 h-3.5" />
             </button>
           </div>
-
         </div>
-
-        {/* Bottom Bar: Exact Copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>
-            Copyright © 2026 {businessInfo.businessName}
-          </p>
-          <p className="flex items-center gap-2">
-            <span>Fast, Mobile-Friendly & Affordable Web Development</span>
-            <span aria-hidden="true" className="text-slate-800">·</span>
-            <span>All Rights Reserved</span>
-          </p>
-        </div>
-
       </div>
     </footer>
   );

@@ -1,42 +1,29 @@
-import React, { useState } from 'react';
-import { MessageCircle, X } from 'lucide-react';
-import { businessInfo } from '../siteConfig';
+import React from 'react';
+import { MessageCircle } from 'lucide-react';
 
 export const FloatingWhatsApp: React.FC = () => {
-  const [showTooltip, setShowTooltip] = useState(true);
-
-  const whatsappUrl = `https://wa.me/${businessInfo.whatsappNumber}?text=${encodeURIComponent(
-    `Hello ${businessInfo.businessName}! I would like to inquire about getting a website made for my business.`
-  )}`;
-
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex items-end gap-3 pointer-events-none">
-      {/* Small notification badge */}
-      {showTooltip && (
-        <div className="hidden sm:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900/95 border border-slate-700 text-white text-xs shadow-xl pointer-events-auto animate-in fade-in slide-in-from-right-4 duration-300">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="font-medium">Need a website? Chat with us!</span>
-          <button
-            onClick={() => setShowTooltip(false)}
-            aria-label="Close message"
-            className="p-0.5 text-slate-400 hover:text-white"
-          >
-            <X className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      )}
-
-      {/* Floating Action Button */}
+    <aside aria-label="WhatsApp Quick Order Support" className="fixed bottom-5 right-5 z-40">
       <a
-        href={whatsappUrl}
+        href="https://wa.me/918292335799?text=Hi%20Farhan%20Clothing%2C%20I%20am%20interested%20in%20your%20collection!"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Chat with Shop Web Developer on WhatsApp"
-        className="w-14 h-14 rounded-full bg-emerald-500 hover:bg-emerald-400 text-white shadow-xl shadow-emerald-950/60 flex items-center justify-center pointer-events-auto transition-transform hover:scale-105 active:scale-95 group focus:outline-none focus-visible:ring-4 focus-visible:ring-emerald-400/50"
+        className="group flex items-center bg-[#25D366] hover:bg-[#20ba5a] text-white px-4 py-3 rounded-full shadow-2xl transition-all transform hover:-translate-y-1 active:translate-y-0 border-2 border-white/30"
+        title="Chat on WhatsApp (+91 8292335799)"
       >
-        <MessageCircle className="w-7 h-7 text-white fill-white/10 group-hover:scale-110 transition-transform" />
-        <span className="sr-only">Chat on WhatsApp</span>
+        {/* WhatsApp Icon */}
+        <div className="relative">
+          <MessageCircle className="w-5 h-5 fill-current" />
+          <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-white rounded-full animate-ping"></span>
+        </div>
+
+        <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap text-xs font-bold font-sans pl-0 group-hover:pl-2">
+          Chat on WhatsApp
+        </span>
+        <span className="hidden sm:inline-block ml-2 text-xs font-bold">
+          Order on WhatsApp
+        </span>
       </a>
-    </div>
+    </aside>
   );
 };
