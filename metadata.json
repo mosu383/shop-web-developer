@@ -1,0 +1,6 @@
+{
+  "name": "Shop Web Developer",
+  "description": "Modern, fast and affordable websites for businesses, shops and professionals. Mobile friendly, custom design, and direct WhatsApp support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
